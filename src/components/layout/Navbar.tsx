@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Button from '../common/Button';
 import { useAuth } from '../../context/AuthContext';
 
 const Navbar: React.FC = () => {
   const { auth, logout } = useAuth();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [featuresOpen, setFeaturesOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleFeatures = () => setFeaturesOpen(!featuresOpen);
+
+  const handleGetStarted = () => {
+    navigate('/register');
+  };
 
   return (
     <nav className="bg-white border-b border-gray-100 shadow-sm py-4">
@@ -80,9 +85,7 @@ const Navbar: React.FC = () => {
               <Link to="/login">
                 <Button variant="outline" size="sm">Log in</Button>
               </Link>
-              <Link to="/register">
-                <Button size="sm">Get Started</Button>
-              </Link>
+              <Button size="sm" onClick={handleGetStarted}>Get Started</Button>
             </>
           ) : (
             <>
@@ -154,9 +157,9 @@ const Navbar: React.FC = () => {
                 <Link to="/login" className="py-2">
                   <Button fullWidth>Log in</Button>
                 </Link>
-                <Link to="/register" className="py-2">
-                  <Button variant="outline" fullWidth>Get Started</Button>
-                </Link>
+                <Button variant="outline" fullWidth onClick={handleGetStarted}>
+                  Get Started
+                </Button>
               </>
             ) : (
               <>
